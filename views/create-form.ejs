@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Create Form</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Create a New Form</h1>
+    <form action="/create-form" method="POST">
+      <div class="form-group">
+        <label for="title">Form Title</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+      <div id="questions-container">
+        <div class="form-group question">
+          <label for="question">Question</label>
+          <input type="text" class="form-control" name="questions[0][text]" required>
+          <label for="options">Options</label>
+          <div class="options-container">
+            <input type="text" class="form-control mb-2" name="questions[0][options][]" required>
+            <input type="text" class="form-control mb-2" name="questions[0][options][]" required>
+          </div>
+          <button type="button" class="btn btn-secondary add-option">Add Option</button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary" id="add-question">Add Question</button>
+      <button type="submit" class="btn btn-primary mt-3">Create Form</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('add-question').addEventListener('click', function () {
+      const questionIndex = document.querySelectorAll('.question').length;
+      const questionHTML = `
+        <div class="form-group question">
+          <label for="question">Question</label>
+          <input type="text" class="form-control" name="questions[${questionIndex}][text]" required>
+          <label for="options">Options</label>
+          <div class="options-container">
+            <input type="text" class="form-control mb-2" name="questions[${questionIndex}][options][]" required>
+            <input type="text" class="form-control mb-2" name="questions[${questionIndex}][options][]" required>
+          </div>
+          <button type="button" class="btn btn-secondary add-option">Add Option</button>
+        </div>
+      `;
+      document.getElementById('questions-container').insertAdjacentHTML('beforeend', questionHTML);
+    });
+
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('add-option')) {
+        const questionGroup = e.target.closest('.question');
+        const optionsContainer = questionGroup.querySelector('.options-container');
+        const optionHTML = `<input type="text" class="form-control mb-2" name="${optionsContainer.children[0].name}" required>`;
+        optionsContainer.insertAdjacentHTML('beforeend', optionHTML);
+      }
+    });
+  </script>
+</body>
+</html>

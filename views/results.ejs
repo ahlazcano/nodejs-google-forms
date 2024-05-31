@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Results for <%= form.title %></title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Results for <%= form.title %></h1>
+    <% questions.forEach(function (question) { %>
+      <h3><%= question.question_text %></h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% question.options.forEach(function (option) { %>
+            <tr>
+              <td><%= option.option_text %></td>
+              <td><%= option.count %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% }); %>
+  </div>
+</body>
+</html>

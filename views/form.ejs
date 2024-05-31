@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title><%= form.title %></title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5"><%= form.title %></h1>
+    <form action="/submit-response" method="POST">
+      <input type="hidden" name="formId" value="<%= form.id %>">
+      <% questions.forEach(function (question, index) { %>
+        <div class="form-group">
+          <label><%= question.question_text %></label>
+          <% question.options.forEach(function (option) { %>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="responses[<%= index %>][optionId]" value="<%= option.id %>" required>
+              <label class="form-check-label"><%= option.option_text %></label>
+            </div>
+          <% }); %>
+          <input type="hidden" name="responses[<%= index %>][questionId]" value="<%= question.id %>">
+        </div>
+      <% }); %>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
