@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'oracle2023', // Cambia esto a tu contraseña
+  password: 'oracle', // Cambia esto a tu contraseña
   database: 'forms_db'
 });
 
@@ -138,7 +138,7 @@ app.get('/results/:id', (req, res) => {
   
 
 // Iniciar el servidor
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
